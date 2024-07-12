@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'configs/theme.dart';
 import 'controllers/controllers.dart';
 import 'screens/configs/screens.dart';
-import 'screens/home/add_todo_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +24,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => HomeScreen()),
         GetPage(name: '/add-todo', page: () => TodoAdd()),
+        GetPage(name: '/edit-todo', page: () => TodoEdit()),
       ],
       initialBinding: BindingsBuilder(() {
         Get.put(UserController());

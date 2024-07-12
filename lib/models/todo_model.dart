@@ -1,12 +1,13 @@
+import 'package:get/get.dart';
+
 class Todo {
   final int id;
   final String title;
   final String startDate;
   final String endDate;
   final String createdAt;
-  final String createdBy;
-  final int status;
-  bool isDone;
+  final String status;
+  RxBool isDone = false.obs;
 
   Todo({
     required this.id,
@@ -14,9 +15,8 @@ class Todo {
     required this.startDate,
     required this.endDate,
     required this.createdAt,
-    required this.createdBy,
     required this.status,
-    this.isDone = false,
+    required this.isDone,
   });
 
   factory Todo.fromJson(Map<String, dynamic> json) {
@@ -26,8 +26,8 @@ class Todo {
       startDate: json['start_date'],
       endDate: json['end_date'],
       createdAt: json['created_at'],
-      createdBy: json['created_by'],
       status: json['status'],
+      isDone: json['status'] == '1' ? true.obs : false.obs,
     );
   }
 
@@ -38,7 +38,6 @@ class Todo {
       'start_date': startDate,
       'end_date': endDate,
       'created_at': createdAt,
-      'created_by': createdBy,
       'status': status,
     };
   }

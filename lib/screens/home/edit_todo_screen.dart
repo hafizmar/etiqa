@@ -9,10 +9,15 @@ import '../../configs/constant.dart';
 import '../../configs/theme.dart';
 import '../../controllers/controllers.dart';
 
-class TodoAdd extends StatelessWidget {
-  TodoAdd({Key? key}) : super(key: key);
+class TodoEdit extends StatelessWidget {
+  TodoEdit({Key? key}) : super(key: key);
 
   final TodoController _todoController = Get.put(TodoController());
+
+  final String todoId = Get.arguments[0];
+  final String title = Get.arguments[1];
+  final String startDate = Get.arguments[2];
+  final String endDate = Get.arguments[3];
 
   final DateTime selectedDate = DateTime.now();
 
@@ -40,6 +45,9 @@ class TodoAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _todoController.titleController.text = title;
+    _todoController.startDate.value = startDate;
+    _todoController.endDate.value = endDate;
     return Scaffold(
       body: Column(
         children: [
@@ -60,7 +68,7 @@ class TodoAdd extends StatelessWidget {
                     },
                   ),
                   title: Text(
-                    'Add new To-Do List',
+                    'Edit To-Do List ',
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -73,6 +81,19 @@ class TodoAdd extends StatelessWidget {
                   centerTitle: false,
                   systemOverlayStyle: SystemUiOverlayStyle.dark,
                   floating: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () async {
+                        await _todoController
+                            .deleteTodo(todoId)
+                            .then((value) => Get.back());
+                      },
+                      icon: const Icon(
+                        CupertinoIcons.delete,
+                        color: Colors.red,
+                      ),
+                    )
+                  ],
                 ),
                 SliverToBoxAdapter(
                   child: Container(
@@ -246,14 +267,14 @@ class TodoAdd extends StatelessWidget {
           Material(
             child: InkWell(
               splashColor: kPrimary,
-              onTap: () => createTodo(),
+              onTap: () => updateTodo(),
               child: Container(
                 padding: const EdgeInsets.only(top: 20.0),
                 color: Colors.black87,
                 width: double.infinity,
                 height: 100,
                 child: Text(
-                  'Create Now',
+                  'Save & Update',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 20.0),
                 ),
@@ -265,13 +286,17 @@ class TodoAdd extends StatelessWidget {
     );
   }
 
-  void createTodo() async {
+  void updateTodo() async {
     if (_todoController.titleController.text.isEmpty) {
       _todoController.isTitleEmpty.value = true;
     }
 
     if (_todoController.titleController.text.isNotEmpty) {
-      _todoController.createTodo().then((value) => Get.back());
+      print('update-todo');
+      await _todoController.updateTodo(todoId).then((value) {
+        Get.back();
+      });
     }
+    ;
   }
 }
