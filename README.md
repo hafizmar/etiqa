@@ -8,7 +8,7 @@ This project aims to develop a To-Do List application using Flutter for the fron
 
 * Flutter: For developing the front-end mobile application.
 * GetX: For state management within the Flutter application.
-* Laravel: For creating the back-end API and handling server-side logic.
+* Laravel: For creating the back-end API and handling server-side logic. Laravel is hosted at www.hafizmar.com
 * SQLite: For the database to store tasks and user data within Laravel.
 
 ### Prerequisites
