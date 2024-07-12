@@ -43,6 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _refreshList() async {
     setState(() {
+      _todoController.titleController.text = '';
+      _todoController.startDate = DateTime.now().toString().obs;
+      _todoController.endDate = DateTime.now().toString().obs;
       _todos = loadInitData();
     });
   }
@@ -72,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/etiqa.png',
+                    'assets/etiqa_white.png',
                     height: 100,
                     width: 100,
                   ),
@@ -149,7 +152,6 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                  final todos = snapshot.data;
                   return SliverFillRemaining(
                     child: Center(child: Text('Loading...')),
                   );
