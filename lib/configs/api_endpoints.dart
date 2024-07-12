@@ -1,5 +1,5 @@
 class ApiEndPoints {
-  static const String baseUrl = 'http://localhost:8000/api/';
+  static const String baseUrl = 'https://www.hafizmar.com/api/';
   static _AuthEndPoints authEndPoints = _AuthEndPoints();
 }
 

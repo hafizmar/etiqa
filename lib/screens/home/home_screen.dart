@@ -28,6 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> delayLoading() async {
     await Future.delayed(const Duration(seconds: 2), () {
+      _homeController.isLoadingString.value = 'Fetching todo list...';
+    });
+
+    await Future.delayed(const Duration(seconds: 2), () {
       _homeController.isLoading.value = false;
     });
   }
@@ -112,14 +116,14 @@ class _HomeScreenState extends State<HomeScreen> {
         shrinkWrap: true,
         slivers: [
           SliverAppBar(
-            backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+            backgroundColor: kPrimary,
             title: Text(
               'To-Do List',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
                     letterSpacing: -1.2,
-                    color: isLightTheme(context) ? Colors.black : Colors.white,
+                    color: Colors.black,
                   ),
             ),
             centerTitle: false,

@@ -50,8 +50,7 @@ class TodoAdd extends StatelessWidget {
                   : const BouncingScrollPhysics(),
               slivers: [
                 SliverAppBar(
-                  backgroundColor:
-                      Theme.of(context).appBarTheme.backgroundColor,
+                  backgroundColor: kPrimary,
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back_ios, color: Colors.black),
                     onPressed: () {
@@ -65,9 +64,7 @@ class TodoAdd extends StatelessWidget {
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                           letterSpacing: -1.2,
-                          color: isLightTheme(context)
-                              ? Colors.black
-                              : Colors.white,
+                          color: Colors.black,
                         ),
                   ),
                   centerTitle: false,
@@ -85,7 +82,9 @@ class TodoAdd extends StatelessWidget {
                             child: Text(
                               'To-Do Title',
                               style: TextStyle(
-                                  color: Colors.grey[600],
+                                  color: isLightTheme(context)
+                                      ? Colors.grey[600]
+                                      : Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -159,7 +158,9 @@ class TodoAdd extends StatelessWidget {
                             child: Text(
                               'Start Date',
                               style: TextStyle(
-                                  color: Colors.grey[600],
+                                  color: isLightTheme(context)
+                                      ? Colors.grey[600]
+                                      : Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -167,9 +168,17 @@ class TodoAdd extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // Text("${selectedDate.toLocal()}".split(' ')[0]),
-                              Obx(() => Text(
+                              Obx(
+                                () => Text(
                                   "${_todoController.startDate.value}"
-                                      .split(' ')[0])),
+                                      .split(' ')[0],
+                                  style: TextStyle(
+                                    color: isLightTheme(context)
+                                        ? Colors.black
+                                        : Colors.white,
+                                  ),
+                                ),
+                              ),
                               Material(
                                 shape: const CircleBorder(),
                                 child: InkWell(
@@ -182,9 +191,7 @@ class TodoAdd extends StatelessWidget {
                                         horizontal: 7.0, vertical: 7.0),
                                     child: Icon(
                                       CupertinoIcons.calendar,
-                                      color: isLightTheme(context)
-                                          ? kPrimary
-                                          : kBubbleLight,
+                                      color: kPrimary,
                                     ),
                                   ),
                                 ),
@@ -200,7 +207,9 @@ class TodoAdd extends StatelessWidget {
                                   child: Text(
                                     'Estimated End Date',
                                     style: TextStyle(
-                                        color: Colors.grey[600],
+                                        color: isLightTheme(context)
+                                            ? Colors.grey[600]
+                                            : Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -210,8 +219,14 @@ class TodoAdd extends StatelessWidget {
                                   children: [
                                     Obx(
                                       () => Text(
-                                          "${_todoController.endDate.value}"
-                                              .split(' ')[0]),
+                                        "${_todoController.endDate.value}"
+                                            .split(' ')[0],
+                                        style: TextStyle(
+                                          color: isLightTheme(context)
+                                              ? Colors.black
+                                              : Colors.white,
+                                        ),
+                                      ),
                                     ),
                                     Material(
                                       shape: const CircleBorder(),
@@ -225,9 +240,7 @@ class TodoAdd extends StatelessWidget {
                                               horizontal: 7.0, vertical: 7.0),
                                           child: Icon(
                                             CupertinoIcons.calendar,
-                                            color: isLightTheme(context)
-                                                ? kPrimary
-                                                : kBubbleLight,
+                                            color: kPrimary,
                                           ),
                                         ),
                                       ),
