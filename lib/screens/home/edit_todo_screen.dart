@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,9 +51,7 @@ class TodoEdit extends StatelessWidget {
         children: [
           Expanded(
             child: CustomScrollView(
-              physics: Platform.isIOS
-                  ? AlwaysScrollableScrollPhysics()
-                  : const BouncingScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
                 SliverAppBar(
                   backgroundColor: kPrimary,

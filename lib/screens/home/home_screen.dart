@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -113,9 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: isLightTheme(context) ? kScaffold : kScaffoldDark,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: CustomScrollView(
-        physics: Platform.isIOS
-            ? const AlwaysScrollableScrollPhysics()
-            : const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         shrinkWrap: true,
         slivers: [
           SliverAppBar(
