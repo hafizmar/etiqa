@@ -21,7 +21,7 @@ This project aims to develop a To-Do List application using Flutter for the fron
 
 ### Architecture
 
-![alt text](https://github.com/hafizmar/etiqa/blob/main/etiqa_archi.jpg?raw=true)
+![alt text](https://github.com/hafizmar/etiqa/blob/main/assets/etiqa_archi.jpg?raw=true)
 
 ### Features
 
