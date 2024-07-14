@@ -19,10 +19,6 @@ This project aims to develop a To-Do List application using Flutter for the fron
 * Laravel 11.x or higher
 * SQLite
 
-### Architecture
-
-![architecture design](https://github.com/hafizmar/etiqa/blob/main/assets/etiqa_archi.JPG?raw=true)
-
 ### Features
 
 * Task Management: CRUD (Create, Read, Update, Delete) operations for tasks.
@@ -44,6 +40,15 @@ This project aims to develop a To-Do List application using Flutter for the fron
 3. Database (SQLite)
 * Schema Design: Designing tables for users, tasks, and categories.
 * Migrations: Using Laravel migrations to manage database schema.
+
+### Architecture Design
+
+![architecture design](https://github.com/hafizmar/etiqa/blob/main/assets/etiqa_archi.JPG?raw=true) 
+
+### Deployment 
+
+Github : https://hafizmar.github.io/etiqa-web-app-demo/
+Firebase : https://etiqa-web-app-demo.web.app
 
 ### Installation
 
