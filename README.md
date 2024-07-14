@@ -19,6 +19,10 @@ This project aims to develop a To-Do List application using Flutter for the fron
 * Laravel 11.x or higher
 * SQLite
 
+### Architecture
+
+![alt text](https://github.com/hafizmar/etiqa/blob/main/etiqa_archi.jpg?raw=true)
+
 ### Features
 
 * Task Management: CRUD (Create, Read, Update, Delete) operations for tasks.
