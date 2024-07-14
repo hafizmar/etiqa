@@ -47,8 +47,8 @@ This project aims to develop a To-Do List application using Flutter for the fron
 
 ### Deployment 
 
-Github : https://hafizmar.github.io/etiqa-web-app-demo/
-Firebase : https://etiqa-web-app-demo.web.app
+* Github : https://hafizmar.github.io/etiqa-web-app-demo/
+* Firebase : https://etiqa-web-app-demo.web.app
 
 ### Installation
 
