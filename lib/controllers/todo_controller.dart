@@ -11,12 +11,14 @@ import '../configs/theme.dart';
 import '../models/models.dart';
 
 class TodoController extends GetxController {
+  // initiate variable
   TextEditingController titleController = TextEditingController();
   RxString startDate = DateTime.now().toString().obs;
   RxString endDate = DateTime.now().toString().obs;
   RxBool isTitleEmpty = false.obs;
   RxList<Todo> rxTodoList = RxList<Todo>();
 
+  // fetch all todos data.
   Future<List<Todo>> todos() async {
     var headers = {
       'Accept': 'application/json',
@@ -28,15 +30,14 @@ class TodoController extends GetxController {
     try {
       http.Response response = await http.get(url, headers: headers);
 
-      print('url : ${url}');
-      print('response : ${response.statusCode}');
+      // print('url : ${url}');
+      // print('response : ${response.statusCode}');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
 
         if (responseData['success'] == true) {
           final List<dynamic> todosJson = responseData['data'];
-          // print(todosJson);
           rxTodoList
               .assignAll(todosJson.map((json) => Todo.fromJson(json)).toList());
           return todosJson.map((json) => Todo.fromJson(json)).toList();
@@ -63,7 +64,7 @@ class TodoController extends GetxController {
         pageBuilder: (ctx, anim1, anim2) => Theme(
           data: isLightTheme(ctx) ? ThemeData.light() : ThemeData.dark(),
           child: CupertinoAlertDialog(
-            title: Text('ERROR'),
+            title: const Text('ERROR'),
             content: error == ''
                 ? const Text('Something went wrong.')
                 : Text('Error ' +
@@ -75,7 +76,7 @@ class TodoController extends GetxController {
               //   onPressed: () => Navigator.of(ctx).pop(false),
               // ),
               CupertinoDialogAction(
-                child: Text('Okay'),
+                child: const Text('Okay'),
                 onPressed: () => Get.back(),
               ),
             ],
@@ -94,6 +95,7 @@ class TodoController extends GetxController {
     }
   }
 
+  // create new todo
   Future<void> createTodo() async {
     var url =
         Uri.parse(ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.createTodo);
@@ -120,8 +122,8 @@ class TodoController extends GetxController {
     }
   }
 
+  // update todo status
   Future<void> updateTodoStatus(String todoId, int status) async {
-    print('update-status : ' + todoId.toString() + ' | ' + status.toString());
     var url = Uri.parse(ApiEndPoints.baseUrl +
         ApiEndPoints.authEndPoints.updateStatusTodo +
         '/' +
@@ -184,6 +186,7 @@ class TodoController extends GetxController {
     }
   }
 
+  // update todo item
   Future<void> updateTodo(String todoId) async {
     var url = Uri.parse(ApiEndPoints.baseUrl +
         ApiEndPoints.authEndPoints.createTodo +
@@ -212,6 +215,7 @@ class TodoController extends GetxController {
     }
   }
 
+  // delete todo item
   Future<void> deleteTodo(String todoId) async {
     var url = Uri.parse(ApiEndPoints.baseUrl +
         ApiEndPoints.authEndPoints.deleteTodo +

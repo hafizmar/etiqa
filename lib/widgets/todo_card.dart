@@ -57,7 +57,8 @@ class TodoCard extends StatelessWidget {
                   margin: const EdgeInsets.all(20),
                   child: Text(
                     todo.title,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
@@ -121,12 +122,6 @@ class TodoCard extends StatelessWidget {
                             longDateName: false,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           )
-                          // Container(
-                          //   child: const Text(
-                          //     '23 hrs 22 min',
-                          //     style: TextStyle(fontWeight: FontWeight.bold),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ],
@@ -162,7 +157,8 @@ class TodoCard extends StatelessWidget {
                             () => Container(
                               child: Text(
                                 todo.isDone.isTrue ? 'Completed' : 'Incomplete',
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),

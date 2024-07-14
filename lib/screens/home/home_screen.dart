@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // variable
   late Future<List<Todo>?> _todos;
 
+  // to delay the loading screen to allow the app to load todo list.
   Future<void> delayLoading() async {
     await Future.delayed(const Duration(seconds: 2), () {
       _homeController.isLoadingString.value = 'Fetching todo list...';
@@ -34,11 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  // load todo list.
   Future<List<Todo>> loadInitData() async {
     var allTodo = await _todoController.todos();
     return allTodo;
   }
 
+  // refresh to do list.
   Future<void> _refreshList() async {
     setState(() {
       _todoController.titleController.text = '';
@@ -64,39 +67,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => !_homeController.isLoading.value
-        ? homeScreen(context)
-        : Scaffold(
-            backgroundColor: kAppBarDark,
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/etiqa_white.png',
-                    height: 100,
-                    width: 100,
-                  ),
-                  // RotationTransition(
-                  //   turns: turnsTween.animate(_animationController),
-                  //   child:
-                  // ),
-                  Obx(
-                    () => Text(
-                      _homeController.isLoadingString.value,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 15.0),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ));
+    return Obx(
+      () => !_homeController.isLoading.value
+          ? _buildHomeScreen(context)
+          : _buildSplashScreen(),
+    );
   }
 
-  Widget homeScreen(BuildContext context) {
+  // homeScreen widget
+  Widget _buildHomeScreen(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
@@ -133,27 +112,34 @@ class _HomeScreenState extends State<HomeScreen> {
               preferredSize: const Size.fromHeight(10.0),
             ),
           ),
+          // Refresh controller
           CupertinoSliverRefreshControl(
             refreshTriggerPullDistance: 150,
             onRefresh: () async {
               _refreshList();
             },
           ),
-          // const SliverFillRemaining(
-          //   child: Center(child: Text('Nothing to do right now.')),
-          // ),
-          // SliverToBoxAdapter(child: TodoCard()),
+          // List of todos
           FutureBuilder<List<Todo>?>(
             future: _todos,
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
+                //checking on conntection
                 case ConnectionState.waiting:
                   return SliverFillRemaining(
-                    child: Center(child: Text('Loading...')),
+                    child: Center(
+                        child: Text(
+                      'Loading...',
+                      style: TextStyle(
+                          color: isLightTheme(context)
+                              ? Colors.black
+                              : Colors.white),
+                    )),
                   );
                 case ConnectionState.done:
                 default:
                   if (snapshot.hasError) {
+                    // if data has error
                     return SliverFillRemaining(
                       child: Center(
                           child: Column(
@@ -173,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )),
                     );
                   } else if (snapshot.hasData) {
+                    // if data has data
                     final todos = snapshot.data;
                     if (todos!.isNotEmpty) {
                       return SliverList(
@@ -185,13 +172,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         }, childCount: todos.length),
                       );
                     } else {
+                      // if something went wrong with the data.
                       return SliverFillRemaining(
-                        child:
-                            Center(child: Text('Nothing to do at the moment.')),
+                        child: Center(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(CupertinoIcons.exclamationmark_triangle_fill,
+                                size: 70.0, color: Colors.yellow[600]),
+                            Container(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Text('Oppss! Something went wrong.',
+                                  style: TextStyle(
+                                      color: isLightTheme(context)
+                                          ? Colors.black
+                                          : Colors.white)),
+                            ),
+                          ],
+                        )),
                       );
                     }
                   } else {
-                    return SliverFillRemaining(
+                    // if there is no data after connection is ok.
+                    return const SliverFillRemaining(
                       child:
                           Center(child: Text('Nothing to do at the moment.')),
                     );
@@ -200,6 +203,34 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           )
         ],
+      ),
+    );
+  }
+
+  // splash screen
+  Widget _buildSplashScreen() {
+    return Scaffold(
+      backgroundColor: kAppBarDark,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/etiqa_white.png',
+              height: 100,
+              width: 100,
+            ),
+            Obx(
+              () => Text(
+                _homeController.isLoadingString.value,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 15.0),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
